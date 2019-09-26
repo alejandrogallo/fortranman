@@ -1,0 +1,6 @@
+[submodule "manpages/man-pages-fortran"]
+	path = manpages/man-pages-fortran
+	url = https://github.com/alejandrogallo/man-pages-fortran
+[submodule "manpages/lapack-manpages"]
+	path = manpages/lapack-manpages
+	url = https://github.com/alejandrogallo/lapack-manpages
