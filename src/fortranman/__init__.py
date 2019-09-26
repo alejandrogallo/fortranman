@@ -16,23 +16,22 @@ def get_resource(keyword):
 def main():
     parser = argparse.ArgumentParser(description="Fortran man pages")
     parser.add_argument(
-        "-k", "--keyword", help="keyword (wildcard)", action="store")
+        "-k", "--keyword",
+        default="", help="keyword (wildcard)", action="store")
     parser.add_argument(
         "-l", "--list", help="List available man pages", action="store_true")
     args = parser.parse_args()
 
     if args.list:
-        for r in get_resource("*"):
+        for r in get_resource(args.keyword):
             print(r)
         sys.exit(0)
 
-    key = args.keyword.lower()
-
-    files = get_resource(key)
-    if not files:
-        print("This keyword '{0}' is not in the database".format(args.keyword))
-        sys.exit(1)
-    else:
+    files = get_resource(args.keyword)
+    try:
         cmd = " ".join(["man", next(files)])
         print(cmd)
         os.system(cmd)
+    except StopIteration:
+        print("This keyword '{0}' is not in the database".format(args.keyword))
+        sys.exit(1)
